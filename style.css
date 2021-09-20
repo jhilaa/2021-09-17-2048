@@ -1,9 +1,18 @@
-.tuile {
-  border: 1px black solid;
+body {
+  background-color: #faf8ef;
 }
 
 #grille {
   display: grid;
-  grid-template-columns: repeat(4, 50px);
-  grid-template-rows: repeat(4, 50px);
+  width: 250px;
+  height: 250px;
+  grid-template-columns: repeat(4, 25%);
+  grid-template-rows: repeat(4, 25%);
+  border: 2px solid #bbada0;
+  border-radius: 10px;
+}
+
+.tuile {
+  background-color: #eee4da;
+  border: 4px solid #bbada0;
 }
