@@ -4,15 +4,25 @@ let nbColonnes = 4;
 let tabGrille = [];
 let tabZeros = [];
 
+function getDivTuile(l, c) {
+  return document.getElementById("tuileL" + l + "C" + c);
+}
+
 // construction de la grille html
 function initGrille() {
-  let newL = [];
+  let divCellule;
+  let divTuile;
   for (let l = 0; l < nbLignes; l++) {
-    let newC = [];
     for (let c = 0; c < nbColonnes; c++) {
-      let divTuile = document.createElement("div");
+      divCellule = document.createElement("div");
+      divCellule.setAttribute("id", "celluleL" + l + "C" + c);
+      divCellule.className = "cellule";
+      //---
+      divTuile = document.createElement("div");
       divTuile.setAttribute("id", "tuileL" + l + "C" + c);
       divTuile.className = "tuile";
+      //---
+      divTuile.appendChild(divCellule);
       divGrille.appendChild(divTuile);
     }
   }
@@ -26,16 +36,27 @@ function initGrille() {
 }
 
 // dessine la grille html en fonction du tableau tabGrille
-function dessinerGrille() {;
+function dessinerGrille() {
   for (let l = 0; l < tabGrille.length; l++) {
     for (let c = 0; c < tabGrille[l].length; c++) {
-      let divTuile = document.getElementById("tuileL" + l + "C" + c);
+      let divTuile = getDivTuile(l, c);
       // si la valeur dans la cellule vaut 0 on n'affiche rien
       divTuile.textContent = tabGrille[l][c] == 0 ? null : tabGrille[l][c];
       // on change la class en fonction de la valeur de la case
-      const cls = ["c2", "c4", "c8", "c16", "c32", "c64", "c128", "c256", "c512"];
+      const cls = [
+        "c2",
+        "c4",
+        "c8",
+        "c16",
+        "c32",
+        "c64",
+        "c128",
+        "c256",
+        "c512",
+        "newCell",
+      ];
       divTuile.classList.remove(...cls);
-      divTuile.classList.add("c"+tabGrille[l][c]);
+      divTuile.classList.add("c" + tabGrille[l][c]);
     }
   }
 }
@@ -57,7 +78,7 @@ function tourADroite(nbTours) {
 }
 
 // supprime les 0 de chaque ligne pour faire se déplacer les autres chiffres vers la droite
-// et on ajoute des cases à null à gauche pour compenser (pas des 0 pour ne pas boucler sur la ligne indéfiniment) 
+// et on ajoute des cases à null à gauche pour compenser (pas des 0 pour ne pas boucler sur la ligne indéfiniment)
 function SupprimerZeroADroite(ligne, colonne) {
   if (tabGrille[ligne][colonne] == 0) {
     tabGrille[ligne].splice(colonne, 1);
@@ -72,6 +93,7 @@ function SupprimerZeroADroite(ligne, colonne) {
 function SommeADroite(ligne, colonne) {
   if (colonne >= 0 && tabGrille[ligne][colonne] != null) {
     if (tabGrille[ligne][colonne] == tabGrille[ligne][colonne - 1]) {
+      getDivTuile(ligne, colonne).classList.add("newCell");
       tabGrille[ligne][colonne] = tabGrille[ligne][colonne] * 2;
       tabGrille[ligne].splice(colonne - 1, 1); //supprime la cellule dont on vient de se servir pour faire  l'addition
       tabGrille[ligne].unshift(null); //nouvelle cellule à gauche du tableau
@@ -106,13 +128,17 @@ function listerLesZeros() {
 
 // tire le bloc vide dans lequel on va mettre un nouveau 2 ou un 4
 function tirerNouveauBloc() {
-  randomSurTabZeros = Math.floor(Math.random() * (tabZeros.length + 1)); // nombre au hazard entre 1 et la taille du tableau des 0
+  randomSurTabZeros = Math.floor(Math.random() * tabZeros.length); // nombre au hazard entre 1 et la taille du tableau des 0
   testNew4 = Math.floor(Math.random() * 10) + 1; // chiffre entre 1 et 10 pour savoir si on va mettre un 4 au lieu d'un 2 (1 chance sur 10)
-  cellNew2ou4 = { // coordonnées de la cellule dont on va remplacer le 0 par un 2 ou un 4
+  cellNew2ou4 = {
+    // coordonnées de la cellule dont on va remplacer le 0 par un 2 ou un 4
     i: tabZeros[randomSurTabZeros].i,
     j: tabZeros[randomSurTabZeros].j,
   };
   tabGrille[cellNew2ou4.i][cellNew2ou4.j] = testNew4 == 10 ? 4 : 2;
+  //
+  let divTuile = getDivTuile(cellNew2ou4.i, cellNew2ou4.j);
+  divTuile.classList.add("newCell");
 }
 
 /** main **********/

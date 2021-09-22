@@ -13,6 +13,17 @@ body {
   border-radius: 10px;
 }
 
+.cellule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eee4da;
+  border: 6px solid #bbada0;
+  font-family: "Arial Rounded MT Bold";
+  font-size: 50px;
+  border-radius: 10px;
+}
+
 .tuile {
   display: flex;
   align-items: center;
@@ -25,38 +36,72 @@ body {
 }
 
 .c2 {
-  background-color: #eee4da;
+  --background-color: #eee4da;
+  background-color: var(--background-color);
   color: #776e65;
-} 
+}
 .c4 {
-  background-color: #ede0c8;
+  --background-color: #ede0c8;
+  background-color: var(--background-color);
   color: #776e65;
-} 
+}
 .c8 {
-  background-color: #f2b179;
+  --background-color: #f2b179;
+  background-color: var(--background-color);
   color: #f9f6f2;
-} 
+}
 .c16 {
-  background-color: #f59563;
+  --background-color: #f59563;
+  background-color: var(--background-color);
   color: #f9f6f2;
 }
 .c32 {
-  background-color: #f67c5f;
+  --background-color: #f67c5f;
+  background-color: var(--background-color);
   color: #f9f6f2;
-} 
+}
 .c64 {
-  background-color: #f65e3b;
+  --background-color: #f65e3b;
+  background-color: var(--background-color);
   color: #f9f6f2;
-} 
+}
 .c128 {
-  background-color: #edcf72;
+  --background: #edcf72;
+  background-color: var(--background-color);
   color: #f9f6f2;
-} 
+}
 .c256 {
-  background-color: #edcc61;
+  --background-color: #edcc61;
+  background-color: var(--background-color);
   color: #f9f6f2;
 }
 .c512 {
-  background-color: #edc850;
+  --background-color: #edc850;
+  background-color: var(--background-color);
   color: #f9f6f2;
+}
+
+.newCell {
+  animation-name: animationNew;
+  animation-duration: 1s;
+}
+
+@keyframes animationNew {
+  0% {
+    border: red 10px solid;
+  }
+  50% {
+    background-color: blue 8px solid;
+  }
+  100% {
+    background-color: red 10px solid;
+  }
+}
+
+/* The element to apply the animation to */
+div {
+  position: relative;
+  background-color: red;
+  animation-name: example;
+  animation-duration: 4s;
 }
