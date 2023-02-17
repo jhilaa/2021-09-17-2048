@@ -4,6 +4,9 @@
 
 Reproduction du célèbre jeu 2048
 
+
+![enter image description here](https://zupimages.net/up/23/07/82wy.gif)
+
 ## Versions
 1.0.0
 
